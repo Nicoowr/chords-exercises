@@ -1,7 +1,9 @@
 import Head from "next/head";
-import {useKeyboardEventHandler} from "~/hooks/useKeyboardEventHandler";
-import {useDegreePermutation} from "~/hooks/useDegreePermutation";
-import {PlayPause} from "~/components/PlayPause";
+import {ChordAndNoteDegree} from "../components/ChordAndNoteDegree";
+import {useDegreePermutation} from "../hooks/useDegreePermutation";
+import {useKeyboardEventHandler} from "../hooks/useKeyboardEventHandler";
+import {PlayPauseExercise} from "../components/PlayPauseExercise";
+import {Stopwatch} from "../components/Stopwatch";
 
 
 const Home = () => {
@@ -21,15 +23,11 @@ const Home = () => {
         </Head>
         <main
             className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-red-900 to-black">
-            <div
-                className="container flex flex-col items-center justify-center gap-12 px-4 py-16 ">
-                <h1 className="text-5xl font-extrabold tracking-tight text-white sm:text-[5rem]">
-                    <span
-                        className="text-red-600">{chordDegree}</span> {noteDegree}
-                </h1>
-            </div>
-            <PlayPause isPaused={isPaused}
-                       startStopPermutation={startStopPermutation}/>
+            <Stopwatch isPaused={isPaused}/>
+            <ChordAndNoteDegree chordDegree={chordDegree}
+                                noteDegree={noteDegree}/>
+            <PlayPauseExercise isPaused={isPaused}
+                               startStopPermutation={startStopPermutation}/>
         </main>
     </>
 }

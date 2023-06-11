@@ -12,8 +12,10 @@ export const useKeyboardEventHandler = ({spaceKeyDownHandler}: {
     }
 
     useEffect(() => {
+        // @ts-expect-error: weird error: type 'KeyboardEvent' is not assignable to type 'KeyboardEvent<Element>'
         document.addEventListener("keydown", handleKeyDown);
 
+        // @ts-expect-error: weird error: type 'KeyboardEvent' is not assignable to type 'KeyboardEvent<Element>'
         return () => document.removeEventListener("keydown", handleKeyDown);
     }, [spaceKeyDownHandler]);
 }
