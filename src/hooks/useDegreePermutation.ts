@@ -1,5 +1,5 @@
-import {useCallback, useEffect, useMemo, useState} from "react";
-import {useInterval} from "~/hooks/useInterval";
+import {useCallback, useState} from "react";
+import {useInterval} from "./useInterval";
 
 const AVAILABLE_CHORDS = ["I", "IV", "V", "vi"]
 const AVAILABLE_NOTES = [1, 3, 5, 7]
