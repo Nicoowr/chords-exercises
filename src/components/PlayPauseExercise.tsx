@@ -6,7 +6,7 @@ type PlayPauseProps = {
     startStopPermutation: () => void
 }
 
-const PlayPause = memo(({isPaused, startStopPermutation}: PlayPauseProps) => {
+const PlayPauseExercise = memo(({isPaused, startStopPermutation}: PlayPauseProps) => {
     return <div>
         {isPaused ?
             <PlayCircleIcon className="h-16 w-16 text-amber-50"
@@ -16,6 +16,6 @@ const PlayPause = memo(({isPaused, startStopPermutation}: PlayPauseProps) => {
     </div>
 })
 
-PlayPause.displayName = "PlayPause"
+PlayPauseExercise.displayName = "PlayPause"
 
-export {PlayPause}
+export {PlayPauseExercise}
