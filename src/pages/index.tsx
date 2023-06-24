@@ -4,16 +4,21 @@ import {useDegreePermutation} from "../hooks/useDegreePermutation";
 import {useKeyboardEventHandler} from "../hooks/useKeyboardEventHandler";
 import {PlayPauseExercise} from "../components/PlayPauseExercise";
 import {Stopwatch} from "../components/Stopwatch";
+import {ALL_CHORDS, useAvailableChords} from "../hooks/useAvailableChords";
+import {useAvailableDegrees} from "../hooks/useAvailableDegrees";
+import {MultiSelectField} from "../components/MultiSelectField";
 
 
 const Home = () => {
 
+    const {availableChords, setAvailableChords} = useAvailableChords()
+    const {availableDegrees, setAvailableDegrees} = useAvailableDegrees()
     const {
         startStopPermutation,
         noteDegree,
         chordDegree,
         isPaused
-    } = useDegreePermutation()
+    } = useDegreePermutation({availableChords, availableDegrees})
     useKeyboardEventHandler({spaceKeyDownHandler: startStopPermutation})
     return <>
         <Head>
@@ -23,6 +28,9 @@ const Home = () => {
         </Head>
         <main
             className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-red-900 to-black">
+            <MultiSelectField options={ALL_CHORDS}
+                              selectedValues={availableChords}
+                              onChange={(selectedValues) => setAvailableChords(selectedValues)}/>
             <Stopwatch isPaused={isPaused}/>
             <ChordAndNoteDegree chordDegree={chordDegree}
                                 noteDegree={noteDegree}/>
