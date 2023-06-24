@@ -1,6 +1,6 @@
 type Props = {
   chordDegree: string;
-  noteDegree: number;
+  noteDegree: string;
 };
 
 export const ChordAndNoteDegree = ({ chordDegree, noteDegree }: Props) => {
