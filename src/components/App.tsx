@@ -8,8 +8,7 @@ import { useKeyboardEventHandler } from "../hooks/useKeyboardEventHandler";
 import { Title } from "./Title";
 
 export const App = () => {
-  const { availableChords, setAvailableChords, sortChords } =
-    useAvailableChords();
+  const { availableChords, setAvailableChords } = useAvailableChords();
   const { availableDegrees, setAvailableDegrees } = useAvailableDegrees();
   const {
     startStopPermutation,
@@ -28,7 +27,6 @@ export const App = () => {
         availableDegrees={availableDegrees}
         setAvailableChords={setAvailableChords}
         setAvailableDegrees={setAvailableDegrees}
-        sortChords={sortChords}
         isPaused={isPaused}
         setIntervalInS={setIntervalInS}
         intervalInS={intervalInS}
