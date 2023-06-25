@@ -6,17 +6,27 @@ type Props<T extends string> = {
   options: T[];
   selectedValues: T[];
   onChange: (value: T[]) => void;
+  label?: string;
 };
 
 export function MultiSelectField<T extends string>({
   options,
   selectedValues,
   onChange,
+  label,
 }: Props<T>) {
   return (
-    <div className="mr-2 mt-6 flex h-12 w-48">
+    <div className="m-2 flex h-12 w-48 flex-col">
+      {label && (
+        <label
+          htmlFor="medium-range"
+          className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+        >
+          {label}
+        </label>
+      )}
       <Listbox value={selectedValues} onChange={onChange} multiple>
-        <div className="relative mt-1 w-48">
+        <div className="relative w-48">
           <Listbox.Button className="relative h-full w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
             <span className="block truncate font-bold text-gray-700">
               {selectedValues.map((value) => value).join(", ")}

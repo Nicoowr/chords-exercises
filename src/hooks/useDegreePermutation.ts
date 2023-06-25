@@ -3,7 +3,7 @@ import { useInterval } from "./useInterval";
 import { type Chord } from "./useAvailableChords";
 import { type Degree } from "./useAvailableDegrees";
 
-const INTERVAL_MS = 5000;
+const DEFAULT_INTERVAL_S = 5;
 
 function getRandomElement<T>(array: T[]) {
   const randomIndex = Math.floor(Math.random() * array.length);
@@ -20,6 +20,7 @@ export const useDegreePermutation = ({
   const [chordDegree, setChordDegree] = useState<string>("I");
   const [noteDegree, setNoteDegree] = useState<string>("1");
   const [isPaused, setIsPaused] = useState(true);
+  const [intervalInS, setIntervalInS] = useState(DEFAULT_INTERVAL_S);
 
   const startStopPermutation = useCallback(() => {
     setIsPaused(!isPaused);
@@ -32,7 +33,7 @@ export const useDegreePermutation = ({
       setChordDegree(randomChordDegree);
       setNoteDegree(randomNoteDegree);
     },
-    isPaused ? null : INTERVAL_MS
+    isPaused ? null : intervalInS * 1000
   );
 
   return {
@@ -40,5 +41,7 @@ export const useDegreePermutation = ({
     chordDegree,
     noteDegree,
     isPaused,
+    setIntervalInS: setIntervalInS,
+    intervalInS: intervalInS,
   };
 };
