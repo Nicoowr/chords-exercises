@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useInterval } from "../hooks/useInterval";
 import { ArrowPathIcon } from "@heroicons/react/24/outline";
 
@@ -8,6 +8,12 @@ type Props = {
 
 export const Stopwatch = ({ isPaused }: Props) => {
   const [elapsedSeconds, setElapsedSeconds] = useState(0);
+
+  useEffect(() => {
+    if (isPaused) {
+      setElapsedSeconds(Math.floor(elapsedSeconds));
+    }
+  }, [isPaused]);
 
   useInterval(
     () => {
@@ -24,11 +30,22 @@ export const Stopwatch = ({ isPaused }: Props) => {
   const resetStopwatch = () => setElapsedSeconds(0);
 
   return (
-    <div className="container  flex columns-2 items-center justify-end px-4 py-16">
-      <ArrowPathIcon className="mr-2 h-8 text-white" onClick={resetStopwatch} />
-      <h2 className="text-5xl font-extrabold text-white sm:text-[3rem]">
-        {formattedMinutes}:{formattedSeconds}
-      </h2>
+    <div className="flex flex-col">
+      <label
+        htmlFor="medium-range"
+        className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+      >
+        Stopwatch
+      </label>
+      <div className="container flex columns-2 items-center justify-end">
+        <ArrowPathIcon
+          className="mr-2 h-8 text-white"
+          onClick={resetStopwatch}
+        />
+        <h2 className="text-5xl font-extrabold text-white sm:text-[3rem]">
+          {formattedMinutes}:{formattedSeconds}
+        </h2>
+      </div>
     </div>
   );
 };

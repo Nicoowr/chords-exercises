@@ -1,5 +1,4 @@
-import { SelectChordsAndDegrees } from "./SelectChordsAndDegrees";
-import { Stopwatch } from "./Stopwatch";
+import { Dashboard } from "./Dashboard";
 import { ChordAndNoteDegree } from "./ChordAndNoteDegree";
 import { PlayPauseExercise } from "./PlayPauseExercise";
 import { useAvailableChords } from "../hooks/useAvailableChords";
@@ -9,23 +8,29 @@ import { useKeyboardEventHandler } from "../hooks/useKeyboardEventHandler";
 import { Title } from "./Title";
 
 export const App = () => {
-  const { availableChords, setAvailableChords, sortChords } =
-    useAvailableChords();
+  const { availableChords, setAvailableChords } = useAvailableChords();
   const { availableDegrees, setAvailableDegrees } = useAvailableDegrees();
-  const { startStopPermutation, noteDegree, chordDegree, isPaused } =
-    useDegreePermutation({ availableChords, availableDegrees });
+  const {
+    startStopPermutation,
+    noteDegree,
+    chordDegree,
+    isPaused,
+    setIntervalInS,
+    intervalInS,
+  } = useDegreePermutation({ availableChords, availableDegrees });
   useKeyboardEventHandler({ spaceKeyDownHandler: startStopPermutation });
   return (
     <>
       <Title />
-      <SelectChordsAndDegrees
+      <Dashboard
         availableChords={availableChords}
         availableDegrees={availableDegrees}
         setAvailableChords={setAvailableChords}
         setAvailableDegrees={setAvailableDegrees}
-        sortChords={sortChords}
+        isPaused={isPaused}
+        setIntervalInS={setIntervalInS}
+        intervalInS={intervalInS}
       />
-      <Stopwatch isPaused={isPaused} />
       <ChordAndNoteDegree chordDegree={chordDegree} noteDegree={noteDegree} />
       <PlayPauseExercise
         isPaused={isPaused}
