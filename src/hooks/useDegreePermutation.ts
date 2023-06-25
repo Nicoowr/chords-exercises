@@ -10,6 +10,19 @@ function getRandomElement<T>(array: T[]) {
   return array[randomIndex] as T;
 }
 
+function selectNextElement<T>(array: T[], previousElement: T): T {
+  // TODO: Empty array case not taken into account
+  if (array.length === 1 && array[0]) {
+    return array[0];
+  }
+  const randomElement = getRandomElement(array);
+  // If the same element is chosen, rerun the function
+  if (randomElement === previousElement) {
+    return selectNextElement(array, previousElement);
+  }
+  return randomElement;
+}
+
 export const useDegreePermutation = ({
   availableDegrees,
   availableChords,
@@ -27,8 +40,8 @@ export const useDegreePermutation = ({
 
   useInterval(
     () => {
-      const randomChordDegree = getRandomElement(availableChords);
-      const randomNoteDegree = getRandomElement(availableDegrees);
+      const randomChordDegree = selectNextElement(availableChords, chordDegree);
+      const randomNoteDegree = selectNextElement(availableDegrees, noteDegree);
       setChordDegree(randomChordDegree);
       setNoteDegree(randomNoteDegree);
     },
