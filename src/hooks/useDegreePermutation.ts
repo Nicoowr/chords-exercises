@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useInterval } from "./useInterval";
 import { type Chord } from "./useAvailableChords";
 import { type Degree } from "./useAvailableDegrees";
@@ -23,6 +23,22 @@ function selectNextElement<T>(array: T[], previousElement: T): T {
   return randomElement;
 }
 
+const usePauseWhenEmptyAvailableChordsOrDegrees = ({
+  availableDegrees,
+  availableChords,
+  setIsPaused,
+}: {
+  availableChords: Chord[];
+  availableDegrees: Degree[];
+  setIsPaused: (isPaused: boolean) => void;
+}) => {
+  useEffect(() => {
+    if (availableDegrees.length === 0 || availableChords.length === 0) {
+      setIsPaused(true);
+    }
+  }, [availableDegrees, availableChords]);
+};
+
 export const useDegreePermutation = ({
   availableDegrees,
   availableChords,
@@ -33,6 +49,12 @@ export const useDegreePermutation = ({
   const [chordDegree, setChordDegree] = useState<string>("I");
   const [noteDegree, setNoteDegree] = useState<string>("1");
   const [isPaused, setIsPaused] = useState(true);
+
+  usePauseWhenEmptyAvailableChordsOrDegrees({
+    availableDegrees,
+    availableChords,
+    setIsPaused,
+  });
 
   const startStopPermutation = useCallback(() => {
     setIsPaused(!isPaused);
