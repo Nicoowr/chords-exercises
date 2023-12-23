@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useLocalState } from "./useLocalState";
 
 export type Chord = "I" | "ii" | "iii" | "IV" | "V" | "vi";
-const DEFAULT_CHORDS: Chord[] = ["I", "IV", "V", "vi"];
+const DEFAULT_CHORDS: Chord[] = ["I", "ii", "iii", "IV", "V", "vi"];
 export const ALL_CHORDS: Chord[] = ["I", "ii", "iii", "IV", "V", "vi"];
 
 export const sortChords = (chords: Chord[]) => {
@@ -28,8 +28,10 @@ export const sortChords = (chords: Chord[]) => {
 };
 
 export const useAvailableChords = () => {
-  const [availableChords, setAvailableChords] =
-    useState<Chord[]>(DEFAULT_CHORDS);
+  const [availableChords, setAvailableChords] = useLocalState<Chord[]>(
+    DEFAULT_CHORDS,
+    "chords"
+  );
 
   return {
     availableChords,

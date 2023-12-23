@@ -1,5 +1,6 @@
 import Head from "next/head";
 import { App } from "../components/App";
+import { NoSSRWrapper } from "../components/lib/NoSSRWrapper";
 
 const Home = () => {
   return (
@@ -10,7 +11,9 @@ const Home = () => {
         <link rel="icon" href="/guitar.png" />
       </Head>
       <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-red-900 to-black">
-        <App />
+        <NoSSRWrapper>
+          <App />
+        </NoSSRWrapper>
       </main>
     </>
   );
