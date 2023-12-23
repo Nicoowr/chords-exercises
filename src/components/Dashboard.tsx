@@ -5,9 +5,9 @@ import {
   sortChords,
 } from "../hooks/useAvailableChords";
 import { ALL_DEGREES, type Degree } from "../hooks/useAvailableDegrees";
-import { RangeSlider } from "flowbite-react";
 import { Stopwatch } from "./Stopwatch";
 import { IntervalSlider } from "./IntervalSlider";
+import { ALL_POSITIONS, type Position } from "../hooks/useAvailablePositions";
 
 type Props = {
   availableChords: Chord[];
@@ -17,12 +17,16 @@ type Props = {
   isPaused: boolean;
   intervalInS: number;
   setIntervalInS: (intervalInMs: number) => void;
+  setAvailablePositions: (positions: Position[]) => void;
+  availablePositions: Position[];
 };
 
 export const Dashboard = ({
   availableDegrees,
   setAvailableChords,
   setAvailableDegrees,
+  setAvailablePositions,
+  availablePositions,
   availableChords,
   isPaused,
   intervalInS,
@@ -30,6 +34,12 @@ export const Dashboard = ({
 }: Props) => {
   return (
     <div className="flex w-full justify-between p-8">
+      <MultiSelectField<Position>
+        options={ALL_POSITIONS}
+        selectedValues={availablePositions}
+        onChange={(selectedValues) => setAvailablePositions(selectedValues)}
+        label="Position"
+      />
       <MultiSelectField<Chord>
         options={ALL_CHORDS}
         selectedValues={sortChords(availableChords)}

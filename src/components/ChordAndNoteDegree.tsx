@@ -1,12 +1,20 @@
+import { type Position } from "../hooks/useAvailablePositions";
+
 type Props = {
   chordDegree: string;
   noteDegree: string;
+  position: Position;
 };
 
-export const ChordAndNoteDegree = ({ chordDegree, noteDegree }: Props) => {
+export const ChordAndNoteDegree = ({
+  chordDegree,
+  noteDegree,
+  position,
+}: Props) => {
   return (
     <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16 ">
       <h1 className="text-5xl font-extrabold tracking-tight text-white sm:text-[5rem]">
+        <span className="text-yellow-600">{position}</span>{" "}
         <span className="text-red-600">{chordDegree}</span> {noteDegree}
       </h1>
     </div>
