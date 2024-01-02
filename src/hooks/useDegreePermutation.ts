@@ -36,6 +36,7 @@ function selectNextRandomAdjacentElement<T>(array: T[], currentElement: T) {
   const randomIndex = Math.floor(
     Math.random() * adjacentElementsIndices.length
   );
+  console.log({ array, currentElement, adjacentElementsIndices, randomIndex });
 
   // @ts-expect-error: the indices will never go out of their relative array length
   return array[adjacentElementsIndices[randomIndex]] as T;

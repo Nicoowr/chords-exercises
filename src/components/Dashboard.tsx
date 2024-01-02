@@ -4,10 +4,18 @@ import {
   type Chord,
   sortChords,
 } from "../hooks/useAvailableChords";
-import { ALL_DEGREES, type Degree } from "../hooks/useAvailableDegrees";
+import {
+  ALL_DEGREES,
+  type Degree,
+  sortDegrees,
+} from "../hooks/useAvailableDegrees";
 import { Stopwatch } from "./Stopwatch";
 import { IntervalSlider } from "./IntervalSlider";
-import { ALL_POSITIONS, type Position } from "../hooks/useAvailablePositions";
+import {
+  ALL_POSITIONS,
+  type Position,
+  sortPositions,
+} from "../hooks/useAvailablePositions";
 
 type Props = {
   availableChords: Chord[];
@@ -36,7 +44,7 @@ export const Dashboard = ({
     <div className="flex w-full justify-between p-8">
       <MultiSelectField<Position>
         options={ALL_POSITIONS}
-        selectedValues={availablePositions}
+        selectedValues={sortPositions(availablePositions)}
         onChange={(selectedValues) => setAvailablePositions(selectedValues)}
         label="Position"
       />
@@ -48,7 +56,7 @@ export const Dashboard = ({
       />
       <MultiSelectField<Degree>
         options={ALL_DEGREES}
-        selectedValues={availableDegrees}
+        selectedValues={sortDegrees(availableDegrees)}
         onChange={(selectedValues) => setAvailableDegrees(selectedValues)}
         label="Degrees"
       />
