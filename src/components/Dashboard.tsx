@@ -45,19 +45,25 @@ export const Dashboard = ({
       <MultiSelectField<Position>
         options={ALL_POSITIONS}
         selectedValues={sortPositions(availablePositions)}
-        onChange={(selectedValues) => setAvailablePositions(selectedValues)}
+        onChange={(selectedValues) =>
+          setAvailablePositions(sortPositions(selectedValues))
+        }
         label="Position"
       />
       <MultiSelectField<Chord>
         options={ALL_CHORDS}
         selectedValues={sortChords(availableChords)}
-        onChange={(selectedValues) => setAvailableChords(selectedValues)}
+        onChange={(selectedValues) =>
+          setAvailableChords(sortChords(selectedValues))
+        }
         label="Chords"
       />
       <MultiSelectField<Degree>
         options={ALL_DEGREES}
         selectedValues={sortDegrees(availableDegrees)}
-        onChange={(selectedValues) => setAvailableDegrees(selectedValues)}
+        onChange={(selectedValues) =>
+          setAvailableDegrees(sortDegrees(selectedValues))
+        }
         label="Degrees"
       />
       <IntervalSlider

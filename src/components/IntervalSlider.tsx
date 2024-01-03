@@ -12,7 +12,7 @@ export const IntervalSlider = ({ intervalInS, setIntervalInS }: Props) => {
         htmlFor="medium-range"
         className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
       >
-        Interval (1s to 10s)
+        Interval ({intervalInS}s)
       </label>
       <RangeSlider
         className="flex h-full w-full items-center"
