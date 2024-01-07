@@ -4,9 +4,11 @@ import { type Chord } from "./useAvailableChords";
 import { type Degree } from "./useAvailableDegrees";
 import { type Position } from "./useAvailablePositions";
 import { modulo } from "../utils/modulo";
+import { type ChordsProgression } from "./useAvailableChordsProgressions";
 
 const DEFAULT_INTERVAL_S = 5;
-
+const DEFAULT_CHORDS_PROGRESSION: ChordsProgression = "I - V - vi - IV";
+const DEFAULT_POSITION: Position = "3";
 function getRandomElement<T>(array: T[]) {
   const randomIndex = Math.floor(Math.random() * array.length);
   return array[randomIndex] as T;
@@ -41,42 +43,21 @@ function selectNextRandomAdjacentElement<T>(array: T[], currentElement: T) {
   return array[adjacentElementsIndices[randomIndex]] as T;
 }
 
-const usePauseWhenEmptyAvailableChordsOrDegrees = ({
-  availableDegrees,
-  availableChords,
-  setIsPaused,
-}: {
-  availableChords: Chord[];
-  availableDegrees: Degree[];
-  setIsPaused: (isPaused: boolean) => void;
-}) => {
-  useEffect(() => {
-    if (availableDegrees.length === 0 || availableChords.length === 0) {
-      setIsPaused(true);
-    }
-  }, [availableDegrees, availableChords]);
-};
-
-export const useDegreePermutation = ({
-  availableDegrees,
-  availableChords,
+export const useProgressionPermutation = ({
+  availableChordsProgressions,
   availablePositions,
 }: {
   availablePositions: Position[];
-  availableChords: Chord[];
-  availableDegrees: Degree[];
+  availableChordsProgressions: ChordsProgression[];
 }) => {
-  const [chordDegree, setChordDegree] = useState<string>("I");
-  const [noteDegree, setNoteDegree] = useState<string>("1");
-  const [position, setPosition] = useState<Position>("3");
+  const [chordsProgression, setChordsProgression] = useState<ChordsProgression>(
+    availableChordsProgressions[0] ?? DEFAULT_CHORDS_PROGRESSION
+  );
+  const [position, setPosition] = useState<Position>(
+    availablePositions[0] ?? DEFAULT_POSITION
+  );
   const [isPaused, setIsPaused] = useState(true);
   const [intervalInS, setIntervalInS] = useState(DEFAULT_INTERVAL_S);
-
-  usePauseWhenEmptyAvailableChordsOrDegrees({
-    availableDegrees,
-    availableChords,
-    setIsPaused,
-  });
 
   const startStopPermutation = useCallback(() => {
     setIsPaused(!isPaused);
@@ -84,14 +65,15 @@ export const useDegreePermutation = ({
 
   useInterval(
     () => {
-      const randomChordDegree = selectNextElement(availableChords, chordDegree);
-      const randomNoteDegree = selectNextElement(availableDegrees, noteDegree);
+      const randomChordsProgression = selectNextElement(
+        availableChordsProgressions,
+        chordsProgression
+      );
       const randomPosition = selectNextRandomAdjacentElement(
         availablePositions,
         position
       );
-      setChordDegree(randomChordDegree);
-      setNoteDegree(randomNoteDegree);
+      setChordsProgression(randomChordsProgression);
       setPosition(randomPosition);
     },
     isPaused ? null : intervalInS * 1000
@@ -99,8 +81,7 @@ export const useDegreePermutation = ({
 
   return {
     startStopPermutation,
-    chordDegree,
-    noteDegree,
+    chordsProgression,
     isPaused,
     position,
     setIntervalInS: setIntervalInS,
