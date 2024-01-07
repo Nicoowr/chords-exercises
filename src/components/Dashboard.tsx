@@ -16,17 +16,24 @@ import {
   type Position,
   sortPositions,
 } from "../hooks/useAvailablePositions";
+import {
+  ALL_CHORDS_PROGRESSIONS,
+  type ChordsProgression,
+  sortChordsProgressions,
+} from "../hooks/useAvailableChordsProgressions";
 
 type Props = {
-  availableChords: Chord[];
-  setAvailableChords: (chords: Chord[]) => void;
-  availableDegrees: Degree[];
-  setAvailableDegrees: (chords: Degree[]) => void;
+  availableChords?: Chord[];
+  setAvailableChords?: (chords: Chord[]) => void;
+  availableDegrees?: Degree[];
+  setAvailableDegrees?: (chords: Degree[]) => void;
+  availableChordsProgressions?: ChordsProgression[];
+  setAvailableChordsProgressions?: (chords: ChordsProgression[]) => void;
   isPaused: boolean;
   intervalInS: number;
   setIntervalInS: (intervalInMs: number) => void;
-  setAvailablePositions: (positions: Position[]) => void;
-  availablePositions: Position[];
+  setAvailablePositions?: (positions: Position[]) => void;
+  availablePositions?: Position[];
 };
 
 export const Dashboard = ({
@@ -36,36 +43,56 @@ export const Dashboard = ({
   setAvailablePositions,
   availablePositions,
   availableChords,
+  availableChordsProgressions,
+  setAvailableChordsProgressions,
   isPaused,
   intervalInS,
   setIntervalInS,
 }: Props) => {
   return (
     <div className="flex w-full justify-between p-8">
-      <MultiSelectField<Position>
-        options={ALL_POSITIONS}
-        selectedValues={sortPositions(availablePositions)}
-        onChange={(selectedValues) =>
-          setAvailablePositions(sortPositions(selectedValues))
-        }
-        label="Position"
-      />
-      <MultiSelectField<Chord>
-        options={ALL_CHORDS}
-        selectedValues={sortChords(availableChords)}
-        onChange={(selectedValues) =>
-          setAvailableChords(sortChords(selectedValues))
-        }
-        label="Chords"
-      />
-      <MultiSelectField<Degree>
-        options={ALL_DEGREES}
-        selectedValues={sortDegrees(availableDegrees)}
-        onChange={(selectedValues) =>
-          setAvailableDegrees(sortDegrees(selectedValues))
-        }
-        label="Degrees"
-      />
+      {availablePositions && setAvailablePositions && (
+        <MultiSelectField<Position>
+          options={ALL_POSITIONS}
+          selectedValues={sortPositions(availablePositions)}
+          onChange={(selectedValues) =>
+            setAvailablePositions(sortPositions(selectedValues))
+          }
+          label="Position"
+        />
+      )}
+      {availableChords && setAvailableChords && (
+        <MultiSelectField<Chord>
+          options={ALL_CHORDS}
+          selectedValues={sortChords(availableChords)}
+          onChange={(selectedValues) =>
+            setAvailableChords(sortChords(selectedValues))
+          }
+          label="Chords"
+        />
+      )}
+      {availableDegrees && setAvailableDegrees && (
+        <MultiSelectField<Degree>
+          options={ALL_DEGREES}
+          selectedValues={sortDegrees(availableDegrees)}
+          onChange={(selectedValues) =>
+            setAvailableDegrees(sortDegrees(selectedValues))
+          }
+          label="Degrees"
+        />
+      )}
+      {availableChordsProgressions && setAvailableChordsProgressions && (
+        <MultiSelectField<ChordsProgression>
+          options={ALL_CHORDS_PROGRESSIONS}
+          selectedValues={sortChordsProgressions(availableChordsProgressions)}
+          onChange={(selectedValues) =>
+            setAvailableChordsProgressions(
+              sortChordsProgressions(selectedValues)
+            )
+          }
+          label="Chords Progressions"
+        />
+      )}
       <IntervalSlider
         intervalInS={intervalInS}
         setIntervalInS={setIntervalInS}

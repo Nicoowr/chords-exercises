@@ -9,7 +9,7 @@ type PlayPauseProps = {
 const PlayPauseExercise = memo(
   ({ isPaused, startStopPermutation }: PlayPauseProps) => {
     return (
-      <div>
+      <div className="container flex flex-col items-center justify-center">
         {isPaused ? (
           <PlayCircleIcon
             className="h-16 w-16 text-amber-50"
