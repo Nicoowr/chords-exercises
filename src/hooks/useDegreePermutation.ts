@@ -31,6 +31,7 @@ function selectNextRandomAdjacentElement<T>(array: T[], currentElement: T) {
   );
   const adjacentElementsIndices = [
     modulo(indexOfCurrentElement - 1, array.length),
+    indexOfCurrentElement,
     modulo(indexOfCurrentElement + 1, array.length),
   ];
   const randomIndex = Math.floor(
