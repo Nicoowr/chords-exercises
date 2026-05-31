@@ -27,7 +27,7 @@ function selectNextElement<T>(array: T[], previousElement: T): T {
 
 function selectNextRandomAdjacentElement<T>(array: T[], currentElement: T) {
   const indexOfCurrentElement = array.findIndex(
-    (element) => element === currentElement
+    (element) => element === currentElement,
   );
   const adjacentElementsIndices = [
     modulo(indexOfCurrentElement - 1, array.length),
@@ -35,7 +35,7 @@ function selectNextRandomAdjacentElement<T>(array: T[], currentElement: T) {
     modulo(indexOfCurrentElement + 1, array.length),
   ];
   const randomIndex = Math.floor(
-    Math.random() * adjacentElementsIndices.length
+    Math.random() * adjacentElementsIndices.length,
   );
 
   // @ts-expect-error: the indices will never go out of their relative array length
@@ -55,7 +55,7 @@ const usePauseWhenEmptyAvailableChordsOrDegrees = ({
     if (availableDegrees.length === 0 || availableChords.length === 0) {
       setIsPaused(true);
     }
-  }, [availableDegrees, availableChords]);
+  }, [availableDegrees, availableChords, setIsPaused]);
 };
 
 export const useDegreePermutation = ({
@@ -80,8 +80,8 @@ export const useDegreePermutation = ({
   });
 
   const startStopPermutation = useCallback(() => {
-    setIsPaused(!isPaused);
-  }, [setIsPaused, isPaused]);
+    setIsPaused((currentlyPaused) => !currentlyPaused);
+  }, []);
 
   useInterval(
     () => {
@@ -89,13 +89,13 @@ export const useDegreePermutation = ({
       const randomNoteDegree = selectNextElement(availableDegrees, noteDegree);
       const randomPosition = selectNextRandomAdjacentElement(
         availablePositions,
-        position
+        position,
       );
       setChordDegree(randomChordDegree);
       setNoteDegree(randomNoteDegree);
       setPosition(randomPosition);
     },
-    isPaused ? null : intervalInS * 1000
+    isPaused ? null : intervalInS * 1000,
   );
 
   return {

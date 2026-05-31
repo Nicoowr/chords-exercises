@@ -87,7 +87,7 @@ export const Dashboard = ({
           selectedValues={sortChordsProgressions(availableChordsProgressions)}
           onChange={(selectedValues) =>
             setAvailableChordsProgressions(
-              sortChordsProgressions(selectedValues)
+              sortChordsProgressions(selectedValues),
             )
           }
           label="Chords Progressions"

@@ -23,7 +23,7 @@ const PlayPauseExercise = memo(
         )}
       </div>
     );
-  }
+  },
 );
 
 PlayPauseExercise.displayName = "PlayPause";

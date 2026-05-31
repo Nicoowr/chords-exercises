@@ -28,10 +28,10 @@ const getInitialStateFromLocalStorage =
 export const useLocalState = <T>(
   initialState: T,
   key: string,
-  shouldSync = true
+  shouldSync = true,
 ): [T, UpdateStateFn<T>] => {
   const [state, setState] = useState<T>(
-    getInitialStateFromLocalStorage({ initialState, key })
+    getInitialStateFromLocalStorage({ initialState, key }),
   );
 
   useEffect(() => {
@@ -54,7 +54,7 @@ export const useLocalState = <T>(
 
     return () =>
       window.removeEventListener("storage", handleStorageChangedMessage);
-  }, [initialState, shouldSync]);
+  }, [initialState, key, shouldSync]);
 
   const updateState = (newState: T) => {
     setState(newState);

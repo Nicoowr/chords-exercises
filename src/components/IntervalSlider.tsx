@@ -1,5 +1,3 @@
-import { RangeSlider } from "flowbite-react";
-
 type Props = {
   intervalInS: number;
   setIntervalInS: (intervalInMs: number) => void;
@@ -14,8 +12,9 @@ export const IntervalSlider = ({ intervalInS, setIntervalInS }: Props) => {
       >
         Interval ({intervalInS}s)
       </label>
-      <RangeSlider
-        className="flex h-full w-full items-center"
+      <input
+        type="range"
+        className="h-2 w-full cursor-pointer appearance-none rounded-lg bg-gray-200 accent-cyan-500"
         value={intervalInS}
         min={1}
         max={10}
