@@ -1,9 +1,16 @@
 type Props = {
   intervalInS: number;
   setIntervalInS: (intervalInMs: number) => void;
+  min?: number;
+  max?: number;
 };
 
-export const IntervalSlider = ({ intervalInS, setIntervalInS }: Props) => {
+export const IntervalSlider = ({
+  intervalInS,
+  setIntervalInS,
+  min = 1,
+  max = 10,
+}: Props) => {
   return (
     <div className="m-2 flex h-12 w-72 flex-col">
       <label
@@ -16,8 +23,8 @@ export const IntervalSlider = ({ intervalInS, setIntervalInS }: Props) => {
         type="range"
         className="h-2 w-full cursor-pointer appearance-none rounded-lg bg-gray-200 accent-cyan-500"
         value={intervalInS}
-        min={1}
-        max={10}
+        min={min}
+        max={max}
         step={1}
         onChange={(event) => setIntervalInS(parseInt(event.target.value, 10))}
       />
