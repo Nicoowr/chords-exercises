@@ -11,7 +11,7 @@ export const sortPositions = (positions: Position[]) => {
 
     if (indexA == -1 || indexB == -1) {
       throw new Error(
-        "Elements in the list are not present in the reference list"
+        "Elements in the list are not present in the reference list",
       );
     }
 
@@ -30,7 +30,7 @@ export const sortPositions = (positions: Position[]) => {
 export const useAvailablePositions = () => {
   const [availablePositions, setAvailablePositions] = useLocalState<Position[]>(
     DEFAULT_POSITIONS,
-    "positions"
+    "positions",
   );
 
   return {

@@ -40,7 +40,7 @@ export const ChordAndNoteDegree = ({
   chordsProgression,
 }: Props) => {
   return (
-    <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16 ">
+    <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16">
       <h1 className="text-5xl font-extrabold tracking-tight text-white sm:text-[5rem]">
         {position && <span className="text-yellow-600">{position} </span>}
         {chordDegree && <span className="text-red-600">{chordDegree} </span>}

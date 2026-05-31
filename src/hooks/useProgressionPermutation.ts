@@ -1,7 +1,5 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import { useInterval } from "./useInterval";
-import { type Chord } from "./useAvailableChords";
-import { type Degree } from "./useAvailableDegrees";
 import { type Position } from "./useAvailablePositions";
 import { modulo } from "../utils/modulo";
 import { type ChordsProgression } from "./useAvailableChordsProgressions";
@@ -29,14 +27,14 @@ function selectNextElement<T>(array: T[], previousElement: T): T {
 
 function selectNextRandomAdjacentElement<T>(array: T[], currentElement: T) {
   const indexOfCurrentElement = array.findIndex(
-    (element) => element === currentElement
+    (element) => element === currentElement,
   );
   const adjacentElementsIndices = [
     modulo(indexOfCurrentElement - 1, array.length),
     modulo(indexOfCurrentElement + 1, array.length),
   ];
   const randomIndex = Math.floor(
-    Math.random() * adjacentElementsIndices.length
+    Math.random() * adjacentElementsIndices.length,
   );
 
   // @ts-expect-error: the indices will never go out of their relative array length
@@ -51,32 +49,32 @@ export const useProgressionPermutation = ({
   availableChordsProgressions: ChordsProgression[];
 }) => {
   const [chordsProgression, setChordsProgression] = useState<ChordsProgression>(
-    availableChordsProgressions[0] ?? DEFAULT_CHORDS_PROGRESSION
+    availableChordsProgressions[0] ?? DEFAULT_CHORDS_PROGRESSION,
   );
   const [position, setPosition] = useState<Position>(
-    availablePositions[0] ?? DEFAULT_POSITION
+    availablePositions[0] ?? DEFAULT_POSITION,
   );
   const [isPaused, setIsPaused] = useState(true);
   const [intervalInS, setIntervalInS] = useState(DEFAULT_INTERVAL_S);
 
   const startStopPermutation = useCallback(() => {
-    setIsPaused(!isPaused);
-  }, [setIsPaused, isPaused]);
+    setIsPaused((currentlyPaused) => !currentlyPaused);
+  }, []);
 
   useInterval(
     () => {
       const randomChordsProgression = selectNextElement(
         availableChordsProgressions,
-        chordsProgression
+        chordsProgression,
       );
       const randomPosition = selectNextRandomAdjacentElement(
         availablePositions,
-        position
+        position,
       );
       setChordsProgression(randomChordsProgression);
       setPosition(randomPosition);
     },
-    isPaused ? null : intervalInS * 1000
+    isPaused ? null : intervalInS * 1000,
   );
 
   return {

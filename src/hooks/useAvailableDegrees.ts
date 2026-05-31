@@ -1,5 +1,4 @@
 import { useLocalState } from "./useLocalState";
-import { ALL_POSITIONS, Position } from "./useAvailablePositions";
 
 export type Degree = "1" | "2" | "3" | "4" | "5" | "6" | "7";
 const DEFAULT_DEGREES: Degree[] = ["1", "3", "5", "7"];
@@ -12,7 +11,7 @@ export const sortDegrees = (degrees: Degree[]) => {
 
     if (indexA == -1 || indexB == -1) {
       throw new Error(
-        "Elements in the list are not present in the reference list"
+        "Elements in the list are not present in the reference list",
       );
     }
 
@@ -31,7 +30,7 @@ export const sortDegrees = (degrees: Degree[]) => {
 export const useAvailableDegrees = () => {
   const [availableDegrees, setAvailableDegrees] = useLocalState<Degree[]>(
     DEFAULT_DEGREES,
-    "degrees"
+    "degrees",
   );
 
   return {

@@ -11,7 +11,7 @@ export const ALL_CHORDS_PROGRESSIONS: ChordsProgression[] = [
 ];
 
 export const sortChordsProgressions = (
-  chordsProgressions: ChordsProgression[]
+  chordsProgressions: ChordsProgression[],
 ) => {
   return chordsProgressions.slice().sort((a, b) => {
     const indexA = ALL_CHORDS_PROGRESSIONS.indexOf(a);
@@ -19,7 +19,7 @@ export const sortChordsProgressions = (
 
     if (indexA == -1 || indexB == -1) {
       throw new Error(
-        "Elements in the list are not present in the reference list"
+        "Elements in the list are not present in the reference list",
       );
     }
 
@@ -39,7 +39,7 @@ export const useAvailableChordsProgressions = () => {
   const [availableChordsProgressions, setAvailableChordsProgressions] =
     useLocalState<ChordsProgression[]>(
       DEFAULT_CHORDS_PROGRESSIONS,
-      "chordsProgressions"
+      "chordsProgressions",
     );
 
   return {

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useInterval } from "../hooks/useInterval";
 import { ArrowPathIcon } from "@heroicons/react/24/outline";
 
@@ -9,17 +9,11 @@ type Props = {
 export const Stopwatch = ({ isPaused }: Props) => {
   const [elapsedSeconds, setElapsedSeconds] = useState(0);
 
-  useEffect(() => {
-    if (isPaused) {
-      setElapsedSeconds(Math.floor(elapsedSeconds));
-    }
-  }, [isPaused]);
-
   useInterval(
     () => {
       setElapsedSeconds(elapsedSeconds + 1);
     },
-    isPaused ? null : 1000
+    isPaused ? null : 1000,
   );
 
   const minutes = Math.floor(elapsedSeconds / 60);
