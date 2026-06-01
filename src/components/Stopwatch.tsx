@@ -35,7 +35,7 @@ export const Stopwatch = ({ isPaused }: Props) => {
         <button
           type="button"
           aria-label="Reset stopwatch"
-          className="rounded-md text-neutral-300 transition hover:text-cyan-300 focus:ring-2 focus:ring-cyan-300 focus:outline-none"
+          className="rounded-md text-neutral-300 transition hover:text-white focus:ring-2 focus:ring-neutral-400 focus:outline-none"
           onClick={resetStopwatch}
         >
           <ArrowPathIcon className="h-6 w-6" />

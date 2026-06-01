@@ -24,7 +24,7 @@ export const App = () => {
             type="button"
             role="tab"
             aria-selected={activeTab === "static"}
-            className={`flex items-center justify-center rounded-md px-4 py-3 text-sm font-medium transition focus:ring-2 focus:ring-cyan-300 focus:outline-none ${
+            className={`flex items-center justify-center rounded-md px-4 py-3 text-sm font-medium transition focus:ring-2 focus:ring-neutral-400 focus:outline-none ${
               activeTab === "static"
                 ? "bg-white text-neutral-950"
                 : "text-neutral-300 hover:bg-white/10 hover:text-white"
@@ -38,7 +38,7 @@ export const App = () => {
             type="button"
             role="tab"
             aria-selected={activeTab === "voice-leading"}
-            className={`flex items-center justify-center rounded-md px-4 py-3 text-sm font-medium transition focus:ring-2 focus:ring-cyan-300 focus:outline-none ${
+            className={`flex items-center justify-center rounded-md px-4 py-3 text-sm font-medium transition focus:ring-2 focus:ring-neutral-400 focus:outline-none ${
               activeTab === "voice-leading"
                 ? "bg-white text-neutral-950"
                 : "text-neutral-300 hover:bg-white/10 hover:text-white"
@@ -52,7 +52,7 @@ export const App = () => {
             type="button"
             role="tab"
             aria-selected={activeTab === "progressions"}
-            className={`flex items-center justify-center rounded-md px-4 py-3 text-sm font-medium transition focus:ring-2 focus:ring-cyan-300 focus:outline-none ${
+            className={`flex items-center justify-center rounded-md px-4 py-3 text-sm font-medium transition focus:ring-2 focus:ring-neutral-400 focus:outline-none ${
               activeTab === "progressions"
                 ? "bg-white text-neutral-950"
                 : "text-neutral-300 hover:bg-white/10 hover:text-white"

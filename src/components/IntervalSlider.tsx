@@ -21,7 +21,7 @@ export const IntervalSlider = ({
       </label>
       <input
         type="range"
-        className="h-11 w-full cursor-pointer accent-cyan-300"
+        className="h-11 w-full cursor-pointer accent-neutral-300"
         value={intervalInS}
         min={min}
         max={max}
