@@ -21,6 +21,7 @@ import {
   type ChordsProgression,
   sortChordsProgressions,
 } from "../hooks/useAvailableChordsProgressions";
+import { type ReactNode } from "react";
 
 type Props = {
   availableChords?: Chord[];
@@ -34,6 +35,8 @@ type Props = {
   setIntervalInS: (intervalInMs: number) => void;
   setAvailablePositions?: (positions: Position[]) => void;
   availablePositions?: Position[];
+  intervalMaxInS?: number;
+  children?: ReactNode;
 };
 
 export const Dashboard = ({
@@ -48,9 +51,11 @@ export const Dashboard = ({
   isPaused,
   intervalInS,
   setIntervalInS,
+  intervalMaxInS,
+  children,
 }: Props) => {
   return (
-    <div className="flex w-full justify-between p-8">
+    <div className="grid w-full grid-cols-1 gap-4 rounded-lg border border-white/10 bg-white/[0.04] p-4 shadow-2xl shadow-black/20 sm:grid-cols-2 lg:grid-cols-5">
       {availablePositions && setAvailablePositions && (
         <MultiSelectField<Position>
           options={ALL_POSITIONS}
@@ -93,9 +98,11 @@ export const Dashboard = ({
           label="Chords Progressions"
         />
       )}
+      {children}
       <IntervalSlider
         intervalInS={intervalInS}
         setIntervalInS={setIntervalInS}
+        max={intervalMaxInS}
       />
       <Stopwatch isPaused={isPaused} />
     </div>
