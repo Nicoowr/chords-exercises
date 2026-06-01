@@ -9,17 +9,17 @@ type PlayPauseProps = {
 const PlayPauseExercise = memo(
   ({ isPaused, startStopPermutation }: PlayPauseProps) => {
     return (
-      <div className="container flex flex-col items-center justify-center">
+      <div className="flex flex-col items-center justify-center">
         <button
           type="button"
           aria-label={isPaused ? "Start exercise" : "Pause exercise"}
-          className="text-amber-50"
+          className="rounded-full border border-white/15 bg-white px-4 py-4 text-neutral-950 shadow-2xl shadow-black/30 transition hover:-translate-y-0.5 hover:bg-cyan-200 focus:ring-2 focus:ring-cyan-300 focus:ring-offset-2 focus:ring-offset-neutral-950 focus:outline-none"
           onClick={startStopPermutation}
         >
           {isPaused ? (
-            <PlayCircleIcon className="h-16 w-16" />
+            <PlayCircleIcon className="h-14 w-14" />
           ) : (
-            <PauseCircleIcon className="h-16 w-16" />
+            <PauseCircleIcon className="h-14 w-14" />
           )}
         </button>
       </div>

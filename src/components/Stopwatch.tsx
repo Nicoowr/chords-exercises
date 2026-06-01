@@ -24,19 +24,23 @@ export const Stopwatch = ({ isPaused }: Props) => {
   const resetStopwatch = () => setElapsedSeconds(0);
 
   return (
-    <div className="flex flex-col">
+    <div className="flex min-w-0 flex-col gap-2">
       <label
         htmlFor="medium-range"
-        className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+        className="block text-xs font-semibold tracking-normal text-neutral-300"
       >
         Stopwatch
       </label>
-      <div className="container flex columns-2 items-center justify-end">
-        <ArrowPathIcon
-          className="mr-2 h-8 text-white"
+      <div className="flex h-11 items-center gap-3 rounded-md border border-white/10 bg-neutral-900 px-3 shadow-inner shadow-black/20">
+        <button
+          type="button"
+          aria-label="Reset stopwatch"
+          className="rounded-md text-neutral-300 transition hover:text-cyan-300 focus:ring-2 focus:ring-cyan-300 focus:outline-none"
           onClick={resetStopwatch}
-        />
-        <h2 className="text-5xl font-extrabold text-white sm:text-[3rem]">
+        >
+          <ArrowPathIcon className="h-6 w-6" />
+        </button>
+        <h2 className="text-3xl leading-none font-semibold text-white tabular-nums">
           {formattedMinutes}:{formattedSeconds}
         </h2>
       </div>

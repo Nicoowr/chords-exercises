@@ -12,16 +12,16 @@ export const IntervalSlider = ({
   max = 10,
 }: Props) => {
   return (
-    <div className="m-2 flex h-12 w-72 flex-col">
+    <div className="flex min-w-0 flex-col gap-2">
       <label
         htmlFor="medium-range"
-        className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+        className="block text-xs font-semibold tracking-normal text-neutral-300"
       >
         Interval ({intervalInS}s)
       </label>
       <input
         type="range"
-        className="h-2 w-full cursor-pointer appearance-none rounded-lg bg-gray-200 accent-cyan-500"
+        className="h-11 w-full cursor-pointer accent-cyan-300"
         value={intervalInS}
         min={min}
         max={max}

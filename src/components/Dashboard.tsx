@@ -55,7 +55,7 @@ export const Dashboard = ({
   children,
 }: Props) => {
   return (
-    <div className="flex w-full justify-between p-8">
+    <div className="grid w-full grid-cols-1 gap-4 rounded-lg border border-white/10 bg-white/[0.04] p-4 shadow-2xl shadow-black/20 sm:grid-cols-2 lg:grid-cols-5">
       {availablePositions && setAvailablePositions && (
         <MultiSelectField<Position>
           options={ALL_POSITIONS}

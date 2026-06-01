@@ -30,6 +30,7 @@ export const VOICE_LEADING_PROGRESSIONS: VoiceLeadingProgression[] = [
   { id: "iv-i", level: "Basic", chords: ["IV", "I"] },
   { id: "ii-v", level: "Basic", chords: ["ii", "V"] },
   { id: "ii-v-i", level: "Basic", chords: ["ii", "V", "I"] },
+  { id: "i-v-vi-iv", level: "Common", chords: ["I", "V", "vi", "IV"] },
   { id: "i-vi-ii-v", level: "Common", chords: ["I", "vi", "ii", "V"] },
   { id: "i-vi-iv-v", level: "Common", chords: ["I", "vi", "IV", "V"] },
   { id: "vi-iv-i-v", level: "Common", chords: ["vi", "IV", "I", "V"] },
