@@ -6,10 +6,8 @@ import {
   type VoiceLeadingTarget,
 } from "../data/voiceLeading";
 import { modulo } from "../utils/modulo";
-import { useInterval } from "./useInterval";
 import { type Position } from "./useAvailablePositions";
 
-const DEFAULT_INTERVAL_S = 15;
 const DEFAULT_POSITION: Position = "3";
 const DEFAULT_PROGRESSION =
   VOICE_LEADING_PROGRESSIONS[0] as VoiceLeadingProgression;
@@ -110,7 +108,6 @@ export const useVoiceLeadingPermutation = ({
     availableTargets[0] ?? DEFAULT_TARGET,
   );
   const [isPaused, setIsPaused] = useState(true);
-  const [intervalInS, setIntervalInS] = useState(DEFAULT_INTERVAL_S);
 
   usePauseWhenVoiceLeadingSelectionIsEmpty({
     availablePositions,
@@ -119,42 +116,36 @@ export const useVoiceLeadingPermutation = ({
     setIsPaused,
   });
 
-  const startStopPermutation = useCallback(() => {
-    setIsPaused((currentlyPaused) => !currentlyPaused);
+  const nextPermutation = useCallback(() => {
+    if (
+      availablePositions.length === 0 ||
+      availableProgressions.length === 0 ||
+      availableTargets.length === 0
+    ) {
+      setIsPaused(true);
+      return;
+    }
+
+    setPosition((currentPosition) =>
+      selectNextRandomAdjacentElement(availablePositions, currentPosition),
+    );
+    setProgression((currentProgression) =>
+      selectNextElement(availableProgressions, currentProgression),
+    );
+    setTarget((currentTarget) =>
+      selectNextElement(availableTargets, currentTarget),
+    );
+    setIsPaused(false);
+  }, [availablePositions, availableProgressions, availableTargets]);
+
+  const pauseStopwatch = useCallback(() => {
+    setIsPaused(true);
   }, []);
 
-  useInterval(
-    () => {
-      if (
-        availablePositions.length === 0 ||
-        availableProgressions.length === 0 ||
-        availableTargets.length === 0
-      ) {
-        return;
-      }
-
-      const randomPosition = selectNextRandomAdjacentElement(
-        availablePositions,
-        position,
-      );
-      const randomProgression = selectNextElement(
-        availableProgressions,
-        progression,
-      );
-      const randomTarget = selectNextElement(availableTargets, target);
-
-      setPosition(randomPosition);
-      setProgression(randomProgression);
-      setTarget(randomTarget);
-    },
-    isPaused ? null : intervalInS * 1000,
-  );
-
   return {
-    startStopPermutation,
+    nextPermutation,
+    pauseStopwatch,
     isPaused,
-    intervalInS,
-    setIntervalInS,
     position,
     progression,
     target,

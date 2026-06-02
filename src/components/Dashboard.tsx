@@ -31,11 +31,12 @@ type Props = {
   availableChordsProgressions?: ChordsProgression[];
   setAvailableChordsProgressions?: (chords: ChordsProgression[]) => void;
   isPaused: boolean;
-  intervalInS: number;
-  setIntervalInS: (intervalInMs: number) => void;
+  intervalInS?: number;
+  setIntervalInS?: (intervalInMs: number) => void;
   setAvailablePositions?: (positions: Position[]) => void;
   availablePositions?: Position[];
   intervalMaxInS?: number;
+  onStopwatchReset?: () => void;
   children?: ReactNode;
 };
 
@@ -52,6 +53,7 @@ export const Dashboard = ({
   intervalInS,
   setIntervalInS,
   intervalMaxInS,
+  onStopwatchReset,
   children,
 }: Props) => {
   return (
@@ -99,12 +101,14 @@ export const Dashboard = ({
         />
       )}
       {children}
-      <IntervalSlider
-        intervalInS={intervalInS}
-        setIntervalInS={setIntervalInS}
-        max={intervalMaxInS}
-      />
-      <Stopwatch isPaused={isPaused} />
+      {intervalInS !== undefined && setIntervalInS && (
+        <IntervalSlider
+          intervalInS={intervalInS}
+          setIntervalInS={setIntervalInS}
+          max={intervalMaxInS}
+        />
+      )}
+      <Stopwatch isPaused={isPaused} onReset={onStopwatchReset} />
     </div>
   );
 };
