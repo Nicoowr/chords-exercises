@@ -18,7 +18,7 @@ import { useKeyboardEventHandler } from "../hooks/useKeyboardEventHandler";
 import { useVoiceLeadingPermutation } from "../hooks/useVoiceLeadingPermutation";
 import { Dashboard } from "./Dashboard";
 import { MultiSelectField } from "./lib/MultiSelectField";
-import { PlayPauseExercise } from "./PlayPauseExercise";
+import { NextExercise } from "./NextExercise";
 import { VoiceLeadingPrompt } from "./VoiceLeadingPrompt";
 
 export const VoiceLeadingExercise = () => {
@@ -46,10 +46,9 @@ export const VoiceLeadingExercise = () => {
   );
 
   const {
-    startStopPermutation,
+    nextPermutation,
+    pauseStopwatch,
     isPaused,
-    intervalInS,
-    setIntervalInS,
     position,
     progression,
     target,
@@ -59,7 +58,12 @@ export const VoiceLeadingExercise = () => {
     availableTargets,
   });
 
-  useKeyboardEventHandler({ spaceKeyDownHandler: startStopPermutation });
+  const canGoToNext =
+    availablePositions.length > 0 &&
+    availableProgressions.length > 0 &&
+    availableTargets.length > 0;
+
+  useKeyboardEventHandler({ spaceKeyDownHandler: nextPermutation });
 
   return (
     <>
@@ -67,9 +71,7 @@ export const VoiceLeadingExercise = () => {
         availablePositions={availablePositions}
         setAvailablePositions={setAvailablePositions}
         isPaused={isPaused}
-        setIntervalInS={setIntervalInS}
-        intervalInS={intervalInS}
-        intervalMaxInS={20}
+        onStopwatchReset={pauseStopwatch}
       >
         <MultiSelectField<VoiceLeadingProgressionLevel>
           options={VOICE_LEADING_PROGRESSION_LEVELS}
@@ -101,10 +103,7 @@ export const VoiceLeadingExercise = () => {
         progression={progression}
         target={target}
       />
-      <PlayPauseExercise
-        isPaused={isPaused}
-        startStopPermutation={startStopPermutation}
-      />
+      <NextExercise disabled={!canGoToNext} onNext={nextPermutation} />
     </>
   );
 };

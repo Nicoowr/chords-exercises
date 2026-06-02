@@ -4,9 +4,10 @@ import { ArrowPathIcon } from "@heroicons/react/24/outline";
 
 type Props = {
   isPaused: boolean;
+  onReset?: () => void;
 };
 
-export const Stopwatch = ({ isPaused }: Props) => {
+export const Stopwatch = ({ isPaused, onReset }: Props) => {
   const [elapsedSeconds, setElapsedSeconds] = useState(0);
 
   useInterval(
@@ -21,7 +22,10 @@ export const Stopwatch = ({ isPaused }: Props) => {
   const seconds = elapsedSeconds - minutes * 60;
   const formattedSeconds = seconds < 10 ? `0${seconds}` : seconds.toString();
 
-  const resetStopwatch = () => setElapsedSeconds(0);
+  const resetStopwatch = () => {
+    setElapsedSeconds(0);
+    onReset?.();
+  };
 
   return (
     <div className="flex min-w-0 flex-col gap-2">
